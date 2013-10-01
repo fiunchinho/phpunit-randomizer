@@ -31,7 +31,7 @@ class PHPUnitRandomizerDecorator extends \PHPUnit_Extensions_TestDecorator
     private function createTestSuite( array $tests )
     {
         $suite = new \PHPUnit_Framework_TestSuite();
-        foreach ( $shuffle as $t ) $suite->addTest($t);
+        foreach ( $tests as $t ) $suite->addTest($t);
 
         return $suite;
     }
