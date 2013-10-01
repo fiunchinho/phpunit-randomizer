@@ -1,0 +1,11 @@
+{
+    "name": "fiunchinho/phpunit-randomizer",
+    "require": {
+        "phpunit/phpunit": "3.7.*@dev"
+    },
+    "bin": ["bin/phpunit"],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "PHPUnitRandomizer": "src/" }
+    }
+}
