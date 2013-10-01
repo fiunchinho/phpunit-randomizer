@@ -3,7 +3,10 @@
     "require": {
         "phpunit/phpunit": "3.7.*@dev"
     },
-    "bin": ["bin/phpunit.php"],
+    "bin": ["bin/phpunit"],
+    "config": {
+        "bin-dir": "bin"
+    },
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": { "PHPUnitRandomizer": "src/" }
