@@ -33,4 +33,4 @@ if (
 }
 
 
-\PHPUnitRandomizer\PHPUnitRandomizerCommand::main();
+\PHPUnitRandomizer\Command::main();
