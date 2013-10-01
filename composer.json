@@ -1,11 +1,20 @@
 {
     "name": "fiunchinho/phpunit-randomizer",
+    "description": "Execute your test cases in random order, so you can check if they have hidden dependencies",
+    "keywords":     ["PHPUnit", "unit testing", "testing"],
+    "homepage":     "http://armesto.net/",
+    "authors": [
+        {
+            "name": "Jose Manuel Armesto",
+            "email": "jose@armesto.net"
+        }
+    ],
     "require": {
         "phpunit/phpunit": "3.7.*@dev"
     },
     "bin": ["bin/phpunit"],
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin/"
     },
     "minimum-stability": "dev",
     "autoload": {
