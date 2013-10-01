@@ -1,7 +1,7 @@
 <?php
 namespace PHPUnitRandomizer;
 
-class PHPUnitRandomizerCommand extends \PHPUnit_TextUI_Command
+class Command extends \PHPUnit_TextUI_Command
 {
 	public static function main($exit = TRUE)
     {
@@ -11,6 +11,6 @@ class PHPUnitRandomizerCommand extends \PHPUnit_TextUI_Command
 
 	protected function createRunner()
 	{
-		return new PHPUnitRandomizerTestRunner($this->arguments['loader']);
+		return new TestRunner($this->arguments['loader']);
 	}
 }

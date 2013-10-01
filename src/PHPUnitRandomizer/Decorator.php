@@ -1,7 +1,7 @@
 <?php
 namespace PHPUnitRandomizer;
 
-class PHPUnitRandomizerDecorator extends \PHPUnit_Extensions_TestDecorator
+class Decorator extends \PHPUnit_Extensions_TestDecorator
 {
     public function __construct(\PHPUnit_Framework_Test $test)
     {
