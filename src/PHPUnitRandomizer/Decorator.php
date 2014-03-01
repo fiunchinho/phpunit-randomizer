@@ -3,20 +3,20 @@ namespace PHPUnitRandomizer;
 
 class Decorator extends \PHPUnit_Extensions_TestDecorator
 {
-    protected $seed = null;
-
     public function __construct(\PHPUnit_Framework_Test $test, $seed = null)
     {
-        $this->seed = $seed;
-        $tests = $this->randomizeTests( $test->tests() );
+        $tests = $this->randomizeTests( $test->tests(), $seed );
         $suite = $this->createTestSuite( $tests );
 
         parent::__construct($suite);
     }
 
-    private function randomizeTests( array $tests )
+    private function randomizeTests( array $tests, $seed )
     {
-        srand($this->seed);
+        if ($seed)
+        {
+            srand($seed);
+        }
 
         $shuffle = array();
         foreach ( $tests as $t )
