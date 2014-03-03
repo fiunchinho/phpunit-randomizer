@@ -13,9 +13,9 @@ class Command extends \PHPUnit_TextUI_Command
     protected $seed = -1;
 
     public function __construct()
-	{
-		$this->longOptions['seed='] = 'seedHandler';
-		$this->seed 				= rand(0, 9999);
+    {
+        $this->longOptions['seed='] = 'seedHandler';
+        $this->seed         = rand(0, 9999);
 
         if (!isset($this->arguments['printer'])) {
             $this->arguments['printer'] = new ResultPrinter(
@@ -23,12 +23,12 @@ class Command extends \PHPUnit_TextUI_Command
               true, // verbose
               true, // colors
               true // debug
-            );
+              );
             $this->arguments['printer']->setSeed($this->seed);
         }
-	}
+    }
 
-	public static function main($exit = TRUE)
+    public static function main($exit = TRUE)
     {
         $command = new self;
         return $command->run($_SERVER['argv'], $exit);
@@ -37,24 +37,24 @@ class Command extends \PHPUnit_TextUI_Command
     protected function seedHandler($seed)
     {
         if (!is_numeric($seed)) {
-			\PHPUnit_TextUI_TestRunner::showError(
-	          sprintf(
-	            'Could not use "%s" as seed.',
+            \PHPUnit_TextUI_TestRunner::showError(
+                sprintf('Could not use "%s" as seed.', $seed)
+            );
+        }
 
-	            $seed
-	          )
-	        );
-		}
+        $this->seed         = intval($seed);
+        $this->arguments['seed']  = $this->seed;
 
-		$this->seed 				= intval($seed);
-		$this->arguments['seed'] 	= $this->seed;
-		$this->arguments['printer']->setSeed($this->seed);
+        if ( $this->arguments['printer'] instanceof ResultPrinter )
+        {
+            $this->arguments['printer']->setSeed($this->seed);
+        }
     }
 
     protected function createRunner()
-	{
-		return new TestRunner($this->arguments['loader'], null, $this->seed);
-	}
+    {
+        return new TestRunner($this->arguments['loader'], null, $this->seed);
+    }
 
     public function showHelp()
     {
@@ -62,7 +62,7 @@ class Command extends \PHPUnit_TextUI_Command
 
         print <<<EOT
 
-  --seed <seed>             Seed the randomizer with a specific seed.
+    --seed <seed>             Seed the randomizer with a specific seed.
 
 EOT;
     }
