@@ -11,10 +11,34 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
 
 	public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array())
     {
-        $test 	= new Decorator( $suite, $this->seed );
-        $suite 	= new \PHPUnit_Framework_TestSuite();
-        $suite->addTest($test);
+        $this->handleConfiguration($arguments);
 
-        parent::doRun( $suite, $arguments );
+        if ($this->printer === NULL) {
+            if (isset($arguments['printer']) &&
+                $arguments['printer'] instanceof PHPUnit_Util_Printer) {
+                $this->printer = $arguments['printer'];
+            } else {
+                $this->printer = new ResultPrinter(
+                  NULL,
+                  $arguments['verbose'],
+                  $arguments['colors'],
+                  $arguments['debug']
+                );
+                $this->printer->setSeed($this->seed);
+            }
+        }
+
+        $test 	= new Decorator(
+            $suite,
+            $this->seed,
+            $arguments['filter'],
+            $arguments['groups'],
+            $arguments['excludeGroups'],
+            $arguments['processIsolation']
+        );
+        $suite 	= new \PHPUnit_Framework_TestSuite();
+        $suite->addTest($test, $arguments['groups']);
+
+        return parent::doRun( $suite, $arguments );
     }
 }
