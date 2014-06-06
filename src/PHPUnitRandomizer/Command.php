@@ -16,16 +16,6 @@ class Command extends \PHPUnit_TextUI_Command
     {
         $this->longOptions['seed='] = 'seedHandler';
         $this->seed         = rand(0, 9999);
-
-        if (!isset($this->arguments['printer'])) {
-            $this->arguments['printer'] = new ResultPrinter(
-              NULL,
-              true, // verbose
-              true, // colors
-              true // debug
-              );
-            $this->arguments['printer']->setSeed($this->seed);
-        }
     }
 
     public static function main($exit = TRUE)
@@ -45,7 +35,7 @@ class Command extends \PHPUnit_TextUI_Command
         $this->seed         = intval($seed);
         $this->arguments['seed']  = $this->seed;
 
-        if ( $this->arguments['printer'] instanceof ResultPrinter )
+        if (isset($this->arguments['printer']) && $this->arguments['printer'] instanceof ResultPrinter )
         {
             $this->arguments['printer']->setSeed($this->seed);
         }
