@@ -39,6 +39,6 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
         $suite 	= new \PHPUnit_Framework_TestSuite();
         $suite->addTest($test, $arguments['groups']);
 
-        parent::doRun( $suite, $arguments );
+        return parent::doRun( $suite, $arguments );
     }
 }
