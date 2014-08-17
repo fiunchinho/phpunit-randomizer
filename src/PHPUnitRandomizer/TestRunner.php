@@ -20,8 +20,6 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
     {
         $this->handleConfiguration($arguments);
 
-        //var_dump($arguments['printer'], $this->printer, $arguments['printer'] instanceof \PHPUnit_Util_Printer);die;
-
         if ($this->printer === NULL) {
             if (isset($arguments['printer']) &&
                 $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
