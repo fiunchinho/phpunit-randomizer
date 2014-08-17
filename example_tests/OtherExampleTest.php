@@ -4,22 +4,22 @@ class OtherExampleTest extends \PHPUnit_Framework_TestCase
 {
 	public static function setUpBeforeClass()
 	{
-		echo __METHOD__ . "\n";
+		//echo __METHOD__ . "\n";
 	}
 
 	public static function tearDownAfterClass()
 	{
-		echo __METHOD__ . "\n";
+		//echo __METHOD__ . "\n";
 	}
 
 	public function setUp()
 	{
-		echo __METHOD__ . "\n";
+		//echo __METHOD__ . "\n";
 	}
 
 	public function tearDown()
 	{
-		echo __METHOD__ . "\n\n";
+		//echo __METHOD__ . "\n\n";
 	}
 
 	public function test1()
