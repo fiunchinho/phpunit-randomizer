@@ -10,11 +10,15 @@
         }
     ],
     "require": {
-        "phpunit/phpunit": "3.7.*@dev"
+        "phpunit/phpunit": "4.2.*"
     },
     "bin": ["bin/phpunit-randomizer"],
-    "minimum-stability": "dev",
     "autoload": {
         "psr-0": { "PHPUnitRandomizer": "src/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
