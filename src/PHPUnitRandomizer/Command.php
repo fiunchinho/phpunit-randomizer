@@ -15,7 +15,7 @@ class Command extends \PHPUnit_TextUI_Command
     public function __construct()
     {
         $this->longOptions['seed='] = 'seedHandler';
-        $this->seed         = rand(0, 9999);
+        $this->seed                 = rand(0, 9999);
     }
 
     public static function main($exit = TRUE)
@@ -52,7 +52,7 @@ class Command extends \PHPUnit_TextUI_Command
 
         print <<<EOT
 
-    --seed <seed>             Seed the randomizer with a specific seed.
+  --seed <seed>             Seed the randomizer with a specific seed.
 
 EOT;
     }

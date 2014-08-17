@@ -9,13 +9,22 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
         $this->seed = $seed;
     }
 
-	public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array())
+	/**
+     * Uses a random test suite to randomize the given test suite, and in case that no printer
+     * has been selected, uses printer that shows the random seed used to randomize.
+     * 
+     * @param  PHPUnit_Framework_Test $suite     TestSuite to execute
+     * @param  array                  $arguments Arguments to use
+     */
+    public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array())
     {
         $this->handleConfiguration($arguments);
 
+        //var_dump($arguments['printer'], $this->printer, $arguments['printer'] instanceof \PHPUnit_Util_Printer);die;
+
         if ($this->printer === NULL) {
             if (isset($arguments['printer']) &&
-                $arguments['printer'] instanceof PHPUnit_Util_Printer) {
+                $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
                 $this->printer = $arguments['printer'];
             } else {
                 $this->printer = new ResultPrinter(
@@ -28,7 +37,7 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
             }
         }
 
-        $test 	= new Decorator(
+        $random_suite 	= new Decorator(
             $suite,
             $this->seed,
             $arguments['filter'],
@@ -36,9 +45,10 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
             $arguments['excludeGroups'],
             $arguments['processIsolation']
         );
-        $suite 	= new \PHPUnit_Framework_TestSuite();
-        $suite->addTest($test, $arguments['groups']);
+       
+        $test   = new \PHPUnit_Framework_TestSuite();
+        $test->addTest($random_suite, $arguments['groups']);
 
-        return parent::doRun( $suite, $arguments );
+        return parent::doRun($test, $arguments);
     }
 }
