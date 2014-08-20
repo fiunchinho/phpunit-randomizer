@@ -19,23 +19,36 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
     public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array())
     {
         $this->handleConfiguration($arguments);
+        if
+        (
+            (isset($arguments['order']) && $arguments['order'] !== 'defined')
+            || (isset($arguments['seed']))
+        )
+        {
+            $suite = $this->getRandomTestSuite($suite, $arguments);
+        }
 
+        return parent::doRun($suite, $arguments);
+    }
+
+    private function getRandomTestSuite($suite, $arguments)
+    {
         if ($this->printer === NULL) {
             if (isset($arguments['printer']) &&
                 $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
                 $this->printer = $arguments['printer'];
             } else {
                 $this->printer = new ResultPrinter(
-                  NULL,
-                  $arguments['verbose'],
-                  $arguments['colors'],
-                  $arguments['debug']
+                    NULL,
+                    $arguments['verbose'],
+                    $arguments['colors'],
+                    $arguments['debug']
                 );
                 $this->printer->setSeed($this->seed);
             }
         }
 
-        $random_suite 	= new Decorator(
+        $random_suite   = new Decorator(
             $suite,
             $this->seed,
             $arguments['filter'],
@@ -43,10 +56,10 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
             $arguments['excludeGroups'],
             $arguments['processIsolation']
         );
-       
-        $test   = new \PHPUnit_Framework_TestSuite();
-        $test->addTest($random_suite, $arguments['groups']);
 
-        return parent::doRun($test, $arguments);
+        $suite   = new \PHPUnit_Framework_TestSuite();
+        $suite->addTest($random_suite, $arguments['groups']);
+
+        return $suite;
     }
 }
