@@ -51,6 +51,7 @@ class Decorator extends \PHPUnit_Extensions_TestDecorator
     private function randomizeTestSuite( $suite, $seed )
     {
         $empty_test_suite = new \PHPUnit_Framework_TestSuite($suite->getName());
+        $empty_test_suite->setRunTestInSeparateProcess($this->processIsolation);
 
         $test_cases = array();
         $order = 0;
