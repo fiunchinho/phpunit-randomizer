@@ -21,7 +21,7 @@ class ResultPrinter extends \PHPUnit_TextUI_ResultPrinter {
         parent::printFooter($result);
 
         $this->writeNewLine();
-        $this->write("Randomized with seed {$this->seed}");
+        $this->write("Randomized with seed: {$this->seed}");
         $this->writeNewLine();
     }
 } 
