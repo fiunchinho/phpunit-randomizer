@@ -19,11 +19,7 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
     public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array())
     {
         $this->handleConfiguration($arguments);
-        if
-        (
-            (isset($arguments['order']) && $arguments['order'] !== 'defined')
-            || (isset($arguments['seed']))
-        )
+        if (isset($arguments['order']))
         {
             $suite = $this->getRandomTestSuite($suite, $arguments);
         }
@@ -31,22 +27,16 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
         return parent::doRun($suite, $arguments);
     }
 
+    /**
+     * Creates a TestSuite with random tests.
+     * 
+     * @param  TestSuite    $suite     The suite to randomize.
+     * @param  array        $arguments Arguments to use.
+     * @return TestSuite
+     */
     private function getRandomTestSuite($suite, $arguments)
     {
-        if ($this->printer === NULL) {
-            if (isset($arguments['printer']) &&
-                $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
-                $this->printer = $arguments['printer'];
-            } else {
-                $this->printer = new ResultPrinter(
-                    NULL,
-                    $arguments['verbose'],
-                    $arguments['colors'],
-                    $arguments['debug']
-                );
-                $this->printer->setSeed($this->seed);
-            }
-        }
+        $this->addPrinter($arguments);
 
         $random_suite   = new Decorator(
             $suite,
@@ -57,9 +47,29 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
             $arguments['processIsolation']
         );
 
-        $suite   = new \PHPUnit_Framework_TestSuite();
+        $suite = new \PHPUnit_Framework_TestSuite();
         $suite->addTest($random_suite, $arguments['groups']);
 
         return $suite;
+    }
+
+    /**
+     * Sets printer to show the seed used to randomize the TestSuite.
+     * @param array $arguments Arguments to use.
+     */
+    private function addPrinter($arguments)
+    {
+        $this->printer = new ResultPrinter(
+            NULL,
+            $arguments['verbose'],
+            $arguments['colors'],
+            $arguments['debug']
+        );
+        $this->printer->setSeed($this->seed);
+
+        if (isset($arguments['printer']) &&
+            $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
+            $this->printer = $arguments['printer'];
+        }
     }
 }
