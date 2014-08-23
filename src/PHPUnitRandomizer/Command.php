@@ -3,16 +3,8 @@ namespace PHPUnitRandomizer;
 
 class Command extends \PHPUnit_TextUI_Command
 {
-    /**
-     * Seed for the randomizer. Randomly calculated by default, but can be passed as argument.
-     *
-     * @var int
-     */
-    protected $seed;
-
     public function __construct()
     {
-        $this->longOptions['seed=']     = 'seedHandler';
         $this->longOptions['order=']    = 'orderHandler';
     }
 
