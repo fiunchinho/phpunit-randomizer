@@ -2,34 +2,39 @@
 
 class OtherExampleTest extends \PHPUnit_Framework_TestCase
 {
+	public static $setUpBeforeClass = -1;
+	public $setUp;
+
 	public static function setUpBeforeClass()
 	{
-		//echo __METHOD__ . "\n";
+		self::$setUpBeforeClass = true;
 	}
 
 	public static function tearDownAfterClass()
 	{
-		//echo __METHOD__ . "\n";
+		self::$setUpBeforeClass = false;
 	}
 
 	public function setUp()
 	{
-		//echo __METHOD__ . "\n";
+		$this->setUp = true;
 	}
 
 	public function tearDown()
 	{
-		//echo __METHOD__ . "\n\n";
+		$this->setUp = false;
 	}
 
 	public function test1()
 	{
+		$this->assertTrue(self::$setUpBeforeClass);
 		echo __METHOD__ . "\n";
 	}
 
 	public function test2()
 	{
-		echo __METHOD__ . "\n";
+		$this->assertTrue($this->setUp);
+		print __METHOD__ . "\n";
 	}
 
 	public function test3()
