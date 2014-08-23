@@ -2,12 +2,28 @@
 
 namespace PHPUnitRandomizer;
 
-class ResultPrinter extends \PHPUnit_TextUI_ResultPrinter {
+class ResultPrinter extends \PHPUnit_TextUI_ResultPrinter
+{
+    /**
+     * Seed used to randomize the order of the tests.
+     *
+     * @var integer
+     */
+    protected $seed;
 
-    protected $seed = null;
-
-    public function setSeed($seed)
+    /**
+     * Constructor.
+     *
+     * @param  mixed                       $out
+     * @param  boolean                     $verbose
+     * @param  boolean                     $colors
+     * @param  boolean                     $debug
+     * @throws PHPUnit_Framework_Exception
+     * @since  Method available since Release 3.0.0
+     */
+    public function __construct($out = null, $verbose = false, $colors = false, $debug = false, $seed = null)
     {
+        parent::__construct($out, $verbose, $colors, $debug);
         $this->seed = $seed;
     }
 

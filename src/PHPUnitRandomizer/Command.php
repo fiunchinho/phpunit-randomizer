@@ -31,7 +31,6 @@ class Command extends \PHPUnit_TextUI_Command
         list($order, $seed)         = $this->getOrderAndSeed($order_parameter);
         $this->arguments['order']   = $order;
         $this->arguments['seed']    = $seed;
-        $this->setSeedToPrinter($seed);
     }
 
     /**
@@ -58,14 +57,6 @@ class Command extends \PHPUnit_TextUI_Command
     private function getRandomSeed()
     {
         return rand(0, 9999);
-    }
-
-    private function setSeedToPrinter($seed)
-    {
-        if (isset($this->arguments['printer']) && $this->arguments['printer'] instanceof ResultPrinter )
-        {
-            $this->arguments['printer']->setSeed($seed);
-        }
     }
 
     protected function createRunner()

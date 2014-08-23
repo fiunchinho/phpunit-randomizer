@@ -33,9 +33,9 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
             NULL,
             $arguments['verbose'],
             $arguments['colors'],
-            $arguments['debug']
+            $arguments['debug'],
+            $arguments['seed']
         );
-        $this->printer->setSeed($arguments['seed']);
 
         if (isset($arguments['printer']) &&
             $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
