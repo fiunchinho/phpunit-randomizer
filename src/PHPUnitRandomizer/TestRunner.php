@@ -3,12 +3,6 @@ namespace PHPUnitRandomizer;
 
 class TestRunner extends \PHPUnit_TextUI_TestRunner
 {
-    public function __construct(PHPUnit_Runner_TestSuiteLoader $loader = NULL, PHP_CodeCoverage_Filter $filter = NULL, $seed = null)
-    {
-        parent::__construct($loader, $filter);
-        $this->seed = $seed;
-    }
-
 	/**
      * Uses a random test suite to randomize the given test suite, and in case that no printer
      * has been selected, uses printer that shows the random seed used to randomize.
@@ -21,36 +15,12 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
         $this->handleConfiguration($arguments);
         if (isset($arguments['order']))
         {
-            $suite = $this->getRandomTestSuite($suite, $arguments);
+            $this->addPrinter($arguments);
+            $randomizer = new Randomizer();
+            $randomizer->randomizeTestSuite($suite, $arguments['seed']);
         }
 
         return parent::doRun($suite, $arguments);
-    }
-
-    /**
-     * Creates a TestSuite with random tests.
-     * 
-     * @param  TestSuite    $suite     The suite to randomize.
-     * @param  array        $arguments Arguments to use.
-     * @return TestSuite
-     */
-    private function getRandomTestSuite($suite, $arguments)
-    {
-        $this->addPrinter($arguments);
-
-        $random_suite   = new Decorator(
-            $suite,
-            $this->seed,
-            $arguments['filter'],
-            $arguments['groups'],
-            $arguments['excludeGroups'],
-            $arguments['processIsolation']
-        );
-
-        $suite = new \PHPUnit_Framework_TestSuite();
-        $suite->addTest($random_suite, $arguments['groups']);
-
-        return $suite;
     }
 
     /**
@@ -63,9 +33,9 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
             NULL,
             $arguments['verbose'],
             $arguments['colors'],
-            $arguments['debug']
+            $arguments['debug'],
+            $arguments['seed']
         );
-        $this->printer->setSeed($this->seed);
 
         if (isset($arguments['printer']) &&
             $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
