@@ -4,20 +4,16 @@ namespace PHPUnitRandomizer;
 class Command extends \PHPUnit_TextUI_Command
 {
     /**
-     * Seed for the randomizer.
-     *
-     * Defaults to -1 until customized or when default value gets set.
+     * Seed for the randomizer. Randomly calculated by default, but can be passed as argument.
      *
      * @var int
      */
-    protected $seed = -1;
+    protected $seed;
 
     public function __construct()
     {
         $this->longOptions['seed=']     = 'seedHandler';
         $this->longOptions['order=']    = 'orderHandler';
-        $this->seed                     = rand(0, 9999);
-        $this->order                    = 'defined';
     }
 
     public static function main($exit = TRUE)
@@ -25,12 +21,17 @@ class Command extends \PHPUnit_TextUI_Command
         return parent::main($exit);
     }
 
-    private function setSeedToPrinter($seed)
+    /**
+     * Only called when 'order' argument is used.
+     * 
+     * @param  string $order_parameter The order argument passed in command line.
+     */
+    protected function orderHandler($order_parameter)
     {
-        if (isset($this->arguments['printer']) && $this->arguments['printer'] instanceof ResultPrinter )
-        {
-            $this->arguments['printer']->setSeed($seed);
-        }
+        list($order, $seed)         = $this->getOrderAndSeed($order_parameter);
+        $this->arguments['order']   = $order;
+        $this->arguments['seed']    = $seed;
+        $this->setSeedToPrinter($seed);
     }
 
     /**
@@ -44,7 +45,7 @@ class Command extends \PHPUnit_TextUI_Command
         @list($order, $seed) = explode(':', $order, 2);
 
         if (empty($seed)) {
-            $seed = $this->seed;
+            $seed = $this->getRandomSeed();
         }
 
         if (!is_numeric($seed)) {
@@ -54,19 +55,22 @@ class Command extends \PHPUnit_TextUI_Command
         return array($order, $seed);
     }
 
-    protected function orderHandler($order_parameter)
+    private function getRandomSeed()
     {
-        list($order, $seed)         = $this->getOrderAndSeed($order_parameter);
-        $this->order                = $order;
-        $this->arguments['order']   = $order;
-        $this->seed                 = $seed;
-        $this->arguments['seed']    = $seed;
-        $this->setSeedToPrinter($this->seed);
+        return rand(0, 9999);
+    }
+
+    private function setSeedToPrinter($seed)
+    {
+        if (isset($this->arguments['printer']) && $this->arguments['printer'] instanceof ResultPrinter )
+        {
+            $this->arguments['printer']->setSeed($seed);
+        }
     }
 
     protected function createRunner()
     {
-        return new TestRunner($this->arguments['loader'], null, $this->seed);
+        return new TestRunner($this->arguments['loader']);
     }
 
     public function showHelp()
