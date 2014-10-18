@@ -5,12 +5,12 @@ namespace PHPUnitRandomizer;
 class Randomizer
 {
 	/**
-     * Order the TestSuite tests in a random order.
-     * 
-     * @param  TestSuite    $suite     The suite to randomize.
-     * @param  array        $arguments Arguments to use.
-     * @return \PHPUnit_Framework_Test
-     */
+	 * Order the TestSuite tests in a random order.
+	 *
+	 * @param  \PHPUnit_Framework_Test $suite The suite to randomize.
+	 * @param  integer                 $seed  Seed used for PHP to randomize the suite.
+	 * @return \PHPUnit_Framework_Test
+	 */
 	public function randomizeTestSuite(\PHPUnit_Framework_Test $suite, $seed)
 	{
         if ($this->testSuiteContainsOtherSuites($suite))
