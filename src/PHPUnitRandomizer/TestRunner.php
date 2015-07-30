@@ -3,7 +3,7 @@ namespace PHPUnitRandomizer;
 
 class TestRunner extends \PHPUnit_TextUI_TestRunner
 {
-	/**
+    /**
      * Uses a random test suite to randomize the given test suite, and in case that no printer
      * has been selected, uses printer that shows the random seed used to randomize.
      * 
@@ -12,12 +12,14 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
      */
     public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array())
     {
-        $this->handleConfiguration($arguments);
-        if (isset($arguments['order']))
+        $localArguments = $arguments;
+
+        $this->handleConfiguration($localArguments);
+        if (isset($localArguments['order']))
         {
-            $this->addPrinter($arguments);
+            $this->addPrinter($localArguments);
             $randomizer = new Randomizer();
-            $randomizer->randomizeTestSuite($suite, $arguments['seed']);
+            $randomizer->randomizeTestSuite($suite, $localArguments['seed']);
         }
 
         return parent::doRun($suite, $arguments);
