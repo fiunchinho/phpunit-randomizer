@@ -10,7 +10,7 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
      * @param  PHPUnit_Framework_Test $suite     TestSuite to execute
      * @param  array                  $arguments Arguments to use
      */
-    public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array())
+    public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array(), $exit = true)
     {
         $localArguments = $arguments;
 
