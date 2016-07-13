@@ -2,8 +2,6 @@
 
 namespace PHPUnitRandomizer;
 
-use Aura\Sql\Exception;
-
 class Randomizer
 {
     /**
