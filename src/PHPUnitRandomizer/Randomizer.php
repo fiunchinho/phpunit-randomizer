@@ -19,7 +19,7 @@ class Randomizer
         }
         else
         {
-            $this->randomizeSuite($suite, $seed, 0, true);
+            $this->randomizeSuite($suite, $seed, 0);
         }
 
         return $suite;
@@ -36,10 +36,10 @@ class Randomizer
     {
         $order = 0;
         foreach ($suite->tests() as $test) {
-            $this->randomizeSuite($test, $seed, $order, true);
+            $this->randomizeSuite($test, $seed, $order);
             $order++;
         }
-        return $this->randomizeSuite($suite, $seed, $order);
+        return $this->randomizeSuite($suite, $seed, $order, false);
     }
 
     /**
@@ -63,7 +63,7 @@ class Randomizer
      * @param  bool                        $fix_depends [=false]
      * @return \PHPUnit_Framework_Test
      */
-    private function randomizeSuite($suite, $seed, $order = 0, $fix_depends = false)
+    private function randomizeSuite($suite, $seed, $order = 0, $fix_depends = true)
     {
         $reflected = new \ReflectionObject($suite);
         $property = $reflected->getProperty('tests');
@@ -152,7 +152,8 @@ class Randomizer
      * @param  array     $tests_methods       tests (shuffled) array
      * @return array     array
      */
-    private function setOrder($tests_dependencies, $tests_methods) {
+    private function setOrder($tests_dependencies, $tests_methods)
+    {
         $new_order = [];
         foreach ($tests_methods as $method_name => $order) {
             if (isset($tests_dependencies[$method_name]) && !in_array($tests_dependencies[$method_name], $new_order)) {
@@ -176,7 +177,8 @@ class Randomizer
      * @param  array     $tests_methods       tests (shuffled) array
      * @return void
      */
-    private function isDependant(&$new_order, $tests_dependencies, $tests_methods, $method) {
+    private function isDependant(&$new_order, $tests_dependencies, $tests_methods, $method)
+    {
         foreach ($tests_dependencies as $dependant => $depends) {
             if ($method == $dependant && !in_array($depends, $new_order)) {
                 array_splice($new_order, array_search($method, $new_order), 0, [$depends]);
