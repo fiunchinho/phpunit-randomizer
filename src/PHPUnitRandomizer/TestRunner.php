@@ -1,16 +1,16 @@
 <?php
 namespace PHPUnitRandomizer;
 
-class TestRunner extends \PHPUnit_TextUI_TestRunner
+class TestRunner extends \PHPUnit\TextUI\TestRunner
 {
     /**
      * Uses a random test suite to randomize the given test suite, and in case that no printer
      * has been selected, uses printer that shows the random seed used to randomize.
-     * 
-     * @param  PHPUnit_Framework_Test $suite     TestSuite to execute
+     *
+     * @param  PHPUnit\Framework\Test $suite     TestSuite to execute
      * @param  array                  $arguments Arguments to use
      */
-    public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array(), $exit = true)
+    public function doRun(\PHPUnit\Framework\Test $suite, array $arguments = array(), $exit = true)
     {
         $localArguments = $arguments;
 
@@ -40,7 +40,7 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
         );
 
         if (isset($arguments['printer']) &&
-            $arguments['printer'] instanceof \PHPUnit_Util_Printer) {
+            $arguments['printer'] instanceof \PHPUnit\Util\Printer) {
             $this->printer = $arguments['printer'];
         }
     }
