@@ -1,6 +1,6 @@
 <?php
 
-class ExampleTest extends \PHPUnit_Framework_TestCase
+class ExampleTest extends \PHPUnit\Framework\TestCase
 {
 	public static $setUpBeforeClass = -1;
 	public $setUp;

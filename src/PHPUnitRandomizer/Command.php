@@ -1,7 +1,7 @@
 <?php
 namespace PHPUnitRandomizer;
 
-class Command extends \PHPUnit_TextUI_Command
+class Command extends \PHPUnit\TextUI\Command
 {
     public function __construct()
     {
@@ -15,7 +15,7 @@ class Command extends \PHPUnit_TextUI_Command
 
     /**
      * Only called when 'order' argument is used.
-     * 
+     *
      * @param  string $order_parameter The order argument passed in command line.
      */
     protected function orderHandler($order_parameter)
@@ -27,7 +27,7 @@ class Command extends \PHPUnit_TextUI_Command
 
     /**
      * Parses arguments to know if random order is desired, and if seed was chosen.
-     * 
+     *
      * @param  string $order String from command line parameter.
      * @return array
      */
@@ -69,8 +69,8 @@ EOT;
 
     private function showError($message)
     {
-        print \PHPUnit_Runner_Version::getVersionString() . "\n\n";
+        print \PHPUnit\Runner\Version::getVersionString() . "\n\n";
         print $message . "\n";
-        exit(\PHPUnit_TextUI_TestRunner::FAILURE_EXIT);
+        exit(\PHPUnit\TextUI\TestRunner::FAILURE_EXIT);
     }
 }

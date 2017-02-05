@@ -7,11 +7,11 @@ class Randomizer
     /**
      * Order the TestSuite tests in a random order.
      *
-     * @param  \PHPUnit_Framework_Test $suite The suite to randomize.
+     * @param  \PHPUnit\Framework\Test $suite The suite to randomize.
      * @param  integer                 $seed  Seed used for PHP to randomize the suite.
-     * @return \PHPUnit_Framework_Test
+     * @return \PHPUnit\Framework\Test
      */
-    public function randomizeTestSuite(\PHPUnit_Framework_Test $suite, $seed)
+    public function randomizeTestSuite(\PHPUnit\Framework\Test $suite, $seed)
     {
         if ($this->testSuiteContainsOtherSuites($suite))
         {
@@ -30,7 +30,7 @@ class Randomizer
      *
      * @param  [type] $suite Main Test Suite to randomize.
      * @param  [type] $seed  Seed to use.
-     * @return \PHPUnit_Framework_Test
+     * @return \PHPUnit\Framework\Test
      */
     private function randomizeSuiteThatContainsOtherSuites($suite, $seed)
     {
@@ -45,23 +45,23 @@ class Randomizer
     /**
      * Test Suites can contain other Test Suites or just Test Cases.
      *
-     * @param  \PHPUnit_Framework_Test $suite [description]
+     * @param  \PHPUnit\Framework\Test $suite [description]
      * @return Boolean
      */
     private function testSuiteContainsOtherSuites($suite)
     {
         $tests = $suite->tests();
-        return isset($tests[0]) && $tests[0] instanceof \PHPUnit_Framework_TestSuite;
+        return isset($tests[0]) && $tests[0] instanceof \PHPUnit\Framework\TestSuite;
     }
 
     /**
      * Randomize the test cases inside a TestSuite, with the given seed.
      *
-     * @param  \PHPUnit_Framework_Test     $suite Test suite to randomize.
+     * @param  \PHPUnit\Framework\Test     $suite Test suite to randomize.
      * @param  integer                     $seed  Seed to be used for the random funtion.
      * @param  integer                     $order Arbitrary value to "salt" the seed.
      * @param  bool                        $fix_depends [=false]
-     * @return \PHPUnit_Framework_Test
+     * @return \PHPUnit\Framework\Test
      */
     private function randomizeSuite($suite, $seed, $order = 0, $fix_depends = true)
     {
