@@ -4,6 +4,9 @@ namespace PHPUnitRandomizer;
 
 class Randomizer
 {
+    /** @var int  */
+    private $order = 0;
+    
     /**
      * Order the TestSuite tests in a random order.
      *
@@ -36,10 +39,13 @@ class Randomizer
     {
         $order = 0;
         foreach ($suite->tests() as $test) {
-            $this->randomizeSuite($test, $seed, $order);
-            $order++;
+            if($this->testSuiteContainsOtherSuites($test)){
+                $this->randomizeSuiteThatContainsOtherSuites($test, $seed);
+            }
+            $this->randomizeSuite($test, $seed, $this->order);
+            $this->order++;
         }
-        return $this->randomizeSuite($suite, $seed, $order, false);
+        return $this->randomizeSuite($suite, $seed, $this->order, false);
     }
 
     /**
