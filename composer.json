@@ -2,13 +2,14 @@
     "name": "fiunchinho/phpunit-randomizer",
     "description": "Execute your test cases in random order, so you can check if they have hidden dependencies",
     "keywords":     ["PHPUnit", "unit testing", "testing"],
-    "homepage":     "http://armesto.net/",
+    "homepage":     "https://armesto.net/",
     "authors": [
         {
             "name": "Jose Manuel Armesto",
             "email": "jose@armesto.net"
         }
     ],
+    "license": "MIT",
     "require": {
     },
     "require-dev": {
