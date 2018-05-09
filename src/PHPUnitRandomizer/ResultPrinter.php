@@ -32,7 +32,7 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
      *
      * @param  PHPUnit\Framework\TestResult $result
      */
-    protected function printFooter(\PHPUnit\Framework\TestResult $result)
+    protected function printFooter(\PHPUnit\Framework\TestResult $result): void
     {
         parent::printFooter($result);
 
