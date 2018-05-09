@@ -8,11 +8,6 @@ class Command extends \PHPUnit\TextUI\Command
         $this->longOptions['order=']    = 'orderHandler';
     }
 
-    public static function main($exit = TRUE)
-    {
-        return parent::main($exit);
-    }
-
     /**
      * Only called when 'order' argument is used.
      *
@@ -51,12 +46,12 @@ class Command extends \PHPUnit\TextUI\Command
         return rand(0, 9999);
     }
 
-    protected function createRunner()
+    protected function createRunner(): \PHPUnit\TextUI\TestRunner
     {
         return new TestRunner($this->arguments['loader']);
     }
 
-    public function showHelp()
+    public function showHelp(): void
     {
         parent::showHelp();
 
