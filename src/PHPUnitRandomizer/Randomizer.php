@@ -39,10 +39,12 @@ class Randomizer
     {
         $order = 0;
         foreach ($suite->tests() as $test) {
-            if($this->testSuiteContainsOtherSuites($test)){
+            if ($test instanceof \PHPUnit\Framework\TestSuite && $this->testSuiteContainsOtherSuites($test)) {
                 $this->randomizeSuiteThatContainsOtherSuites($test, $seed);
             }
-            $this->randomizeSuite($test, $seed, $this->order);
+            if ($test instanceof \PHPUnit\Framework\TestSuite) {
+                $this->randomizeSuite($test, $seed, $this->order);
+            }
             $this->order++;
         }
         return $this->randomizeSuite($suite, $seed, $this->order, false);
