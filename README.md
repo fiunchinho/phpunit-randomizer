@@ -6,6 +6,11 @@ PHPUnit has an option to execute test cases in process isolation, but that takes
 
 With this library, you don't have to modify any PHPUnit code. Just install it, and use the binary from the vendor folder (`vendor/fiunchinho/phpunit-randomizer/bin/phpunit-randomizer`) to run your tests, instead of using the default phpunit command.
 
+Installation
+-------
+
+    composer require --dev fiunchinho/phpunit-randomizer
+
 Usage
 -------
 The executable binary is under the bin folder and it works exactly the same as the default phpunit file, accepting the same arguments, except for one: The `order` argument.
