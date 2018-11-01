@@ -6,6 +6,13 @@ phpunit-randomizer
 vendor/bin/phpunit --order-by=random
 ```
 
+You can pass a known seed to get the same order (useful when tests have failed in a certain order, so you can re-run the suite)
+
+```bash
+SEED=$(head -200 /dev/urandom | cksum | cut -f1 -d " ")
+echo "Running tests with seed $SEED"
+vendor/bin/phpunit --order-by=random --random-order-seed=$SEED
+```
 ---
 
 
