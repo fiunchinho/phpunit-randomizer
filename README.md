@@ -1,5 +1,13 @@
 phpunit-randomizer
 ==================
+[PHPUnit has now similar features to this plugin already built-in](https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-7.3.md#added), so you wouldn't need to use this plugin. To execute your tests in a random order just
+
+```bash
+vendor/bin/phpunit --order-by=random
+```
+
+---
+
 
 A PHPUnit extension that allows you to execute your test cases in a random order. This way you can identify tests that depend on other tests because they share some state, like object state, or even database state.
 PHPUnit has an option to execute test cases in process isolation, but that takes a lot of time when you have many tests.
